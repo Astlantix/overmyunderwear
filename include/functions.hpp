@@ -35,7 +35,6 @@ void rgt(double angle);
 void lft(double angle);
 void printing(std::string);
 bool tempcheck(void);
-bool tipping(void);
 
 
 #endif // FUNCTIONS_HPP

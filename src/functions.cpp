@@ -327,7 +327,7 @@ int pid(double target) {
         bl.spin(fwd,11*power,volt);
         br.spin(fwd,11*power,volt);
 
-        if (fabs(error) < 0.7 && fabs(prevError) < 1.2) break;
+        if (fabs(error) < 0.7 && fabs(prevError) < 1) break;
 
         prevPower = power;
         prevError = error;
@@ -351,17 +351,7 @@ int pid(double target) {
     return 0;
 }
 
-void Right(double angle) {
-    setstop(1);
-    inert.setRotation(0,deg);
-    while (fabs(inert.rotation(deg)) < angle) {
-        double error = angle - fabs(inert.rotation(deg));
-        L.spin(fwd,5 + error * 0.1,pct);
-        R.spin(rev,5 + error * 0.1,pct);
-    }
-    L.stop();
-    R.stop();
-}
+
 
 void Left(double angle) {
     setstop(1);

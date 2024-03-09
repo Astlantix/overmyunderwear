@@ -4,27 +4,27 @@
 using namespace vex;
 using namespace std;
 
-void rawp() {
+void rawp(void) {
     
 }
 
-void oprawp() {
+void oprawp(void) {
 
 }
 
-void lawp() {
+void lawp(void) {
 
 }
 
-void elim() {
+void elim(void) {
 
 }
 
-void skills() {
+void skills(void) {
 
 }
 
-void test() {
+void test(void) {
     msp(fl);
     wait(1,sec);
     msc(fl);

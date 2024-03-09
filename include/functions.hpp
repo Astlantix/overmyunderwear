@@ -7,34 +7,86 @@ extern int auton;
 extern int b;
 extern bool flapping;
 extern bool punching;
-extern const long double π = atan(1) * 4;
 
+// auton selector
 void autonslctr(void);
-void setstop(int mode = 0);
-void setv(double vel);
-void msc(motor m);
-void msp(motor m, bool dir = 1, double vel = 100);
-void spread(void);
-void fold(void);
-void wingaction(void);
-void lwing();
-void rwing();
-void lwings();
-void rwings();
-void flap(void);
-void intaking(void);
-void batmobile(void);
-void tank(void);
-void arcade(void);
-void punch(void);
-void pullback(void);
-int pid();
-void Right(double angle);
-void Left(double angle);
-void rgt(double angle);
-void lft(double angle);
-void printing(std::string);
-bool tempcheck(void);
 
+/**
+ * @brief mode 0: coast, mode 1: brake, mode 2: hold
+*/
+void setstop(int mode = 0);
+
+// set drivetrain velocity
+void setv(double vel);
+
+// motor coast
+void msc(motor m);
+/**
+ * @brief motor spin
+ * @param m motor
+ * @param dir direction, 1 = 1: forward, 0: backward
+ * @param vel velocity = 100
+*/
+void msp(motor m, bool dir = 1, double vel = 100);
+
+// open wings
+void spread(void);
+
+// close wings
+void fold(void);
+
+// open/close wings
+void wingaction(void);
+
+// open/close left wing
+void lwing();
+
+// open/close right wing
+void rwing();
+
+// open/close toggle left wing
+void lwings();
+
+// open/close toggle right wing
+void rwings();
+
+// open/close toggle wings
+void flap(void);
+
+// intaking
+void intaking(void);
+
+// tank drive
+void tank(void);
+
+// arcade drive
+void arcade(void);
+
+// catapult start/stop
+void punch(void);
+
+// cata start/stop toggle
+void pullback(void);
+
+// PID drivetrain
+int pid();
+
+// turn right
+void Right(double angle);
+
+// turn left
+void Left(double angle);
+
+// turn right to heading (rotation)
+void rgt(double angle);
+
+// turn left to heading (rotation)
+void lft(double angle);
+
+// print to controller
+void printing(std::string);
+
+// tempcheck for over 45 C all motors
+bool tempcheck(void);
 
 #endif // FUNCTIONS_HPP

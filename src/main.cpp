@@ -108,7 +108,6 @@ int main(void) {
     // Set up callbacks for autonomous and driver control periods.
     Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
-    //batmobile();
     //tank();
     arcade();
     // Run the pre-autonomous function.

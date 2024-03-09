@@ -1,11 +1,11 @@
 #ifndef AUTONS_HPP
 #define AUTONS_HPP
 
-void rawp();
-void oprawp();
-void lawp();
-void elim();
-void skills();
-void test();
+void rawp(void);
+void oprawp(void);
+void lawp(void);
+void elim(void);
+void skills(void);
+void test(void);
 
 #endif // AUTONS_HPP

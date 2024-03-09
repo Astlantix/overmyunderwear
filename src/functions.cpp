@@ -5,11 +5,11 @@ using namespace std;
 using namespace chrono;
 
 
-int auton = 1;
-int numofautons = 5;
-bool flapping = 0;
+int auton = 1; // defualt auton
+int numofautons = 5; // maximum number of autons
+bool flapping = 0; // wing toggle
 int b = 0; // intake control
-bool punching = 0;
+bool punching = 0; // cata toggle
 
 void autonslctr(void) {
     if (zap.ButtonRight.pressing()) {
@@ -104,8 +104,8 @@ void rwing() {
   }
 }
 
-steady_clock::time_point lastLWing;
-steady_clock::time_point lastRWing;
+steady_clock::time_point lastLWing; // left wing last action time
+steady_clock::time_point lastRWing; // right wing last action time
 
 void lwings() {
   auto now = steady_clock::now();
@@ -125,7 +125,7 @@ void rwings() {
   }
 }
 
-steady_clock::time_point lastFlap;
+steady_clock::time_point lastFlap; // last wing action time
 
 void flap(void) {
     auto now = steady_clock::now();
@@ -139,9 +139,8 @@ void flap(void) {
 
 steady_clock::time_point printake; // time last intake pressing
 
-// intake thing
 void intaking(void) {
-    auto now = steady_clock::now(); // current time
+    auto now = steady_clock::now();
     auto durLastTake = duration_cast<milliseconds>(now-printake).count();
     if(durLastTake > 150) {
         if (b==0) {
@@ -173,12 +172,6 @@ void intaking(void) {
     }
 }
 
-void batmobile(void) {
-    while (1) {
-
-    }
-    this_thread::sleep_for(10);
-}
 
 void tank(void) {
     while (1) {
@@ -200,7 +193,7 @@ void arcade(void) {
     this_thread::sleep_for(10);
 }
 
-steady_clock::time_point lastPunch;
+steady_clock::time_point lastPunch; // last catapult action time
 
 void punch(void) {
     if (punching) {
@@ -395,8 +388,4 @@ bool tempcheck(void) {
     } else {
         return 0;
     }
-}
-
-bool tipping(void) {
-    return 1;
 }

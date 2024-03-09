@@ -3,7 +3,7 @@
 /*    Module:       main.cpp                                                  */
 /*    Author:       Redwood Robotics                                          */
 /*    Created:      2/10/2024, 3:52:11 PM                                     */
-/*    Description:  V5 project                                                */
+/*    Description:  haha underwear                                            */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
@@ -14,7 +14,7 @@
 using namespace vex;
 using namespace std;
 
-// competition
+
 competition Competition;
 
 bool atnslct = 0;
@@ -103,6 +103,7 @@ void usercontrol(void) {
     }
 }
 
+// according to some website, cussing in your code makes people want to hire you more, and thats fucking funny
 int main(void) {
 
     // Set up callbacks for autonomous and driver control periods.

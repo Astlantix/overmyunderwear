@@ -227,7 +227,7 @@ void graphPID(vector<int> errorHistory, vector<float> powerHistory, int goal, fl
   // error is the current error
   // time is the current time, in milliseconds
   
-  //Setup: clear screen and draw the target line
+  // Setup: clear screen and draw the target line
   Brain.Screen.clearScreen();
   Brain.Screen.setPenWidth(2);
   Brain.Screen.setPenColor(white);
@@ -235,7 +235,7 @@ void graphPID(vector<int> errorHistory, vector<float> powerHistory, int goal, fl
   Brain.Screen.setPenWidth(1);
   Brain.Screen.setPenColor(green);
 
-  //display final error and time
+  // display final error and time
   Brain.Screen.setCursor(1, 1);
   Brain.Screen.clearLine(1);
   Brain.Screen.print(" Final Error: ");
@@ -243,21 +243,21 @@ void graphPID(vector<int> errorHistory, vector<float> powerHistory, int goal, fl
   Brain.Screen.print("    Time: ");
   Brain.Screen.print(time);
   
-  //define the borders of the graph
-  int minY = 60; //error = 0 (robot is at target)
-  int maxY = 230; //error = driveDistance (Robot is at start)
-  int minX = 10; //time = beginning
-  int maxX = 470; //time = end
+  // define the borders of the graph
+  int minY = 60; // error = 0 (robot is at target)
+  int maxY = 230; // error = driveDistance (Robot is at start)
+  int minX = 10; // time = beginning
+  int maxX = 470; // time = end
   
-  //loop through each data point and graph it
+  // loop through each data point and graph it
   for (int i = 0; i < errorHistory.size() - 1; i++) { 
     int x = minX + (maxX - minX) * i / errorHistory.size(); //find the x-value of this data point
     
-    //graph velocity
+    // graph velocity
     Brain.Screen.setPenColor(green);
     Brain.Screen.drawLine(x, minY + (float)errorHistory.at(i) / goal * (maxY - minY), x + (float)(maxX - minX) / errorHistory.size(), minY + (float)errorHistory.at(i + 1) / goal * (maxY - minY));
     
-    //graph power, changing color based on direction
+    // graph power, changing color based on direction
     if (powerHistory.at(i) > 0) {
       Brain.Screen.setPenColor(orange);
     } else {
@@ -289,9 +289,9 @@ int pid(double target) {
     br.setPosition(0,deg);
 
     //lists
-    vector<int> errorHistory; //keep track of error over time
-    vector<float> powerHistory; //keep track of motor power over time
-    int currentTime = 0; //keep track of time over time (wow!)*/
+    vector<int> errorHistory; // keep track of error over time
+    vector<float> powerHistory; // keep track of motor power over time
+    int currentTime = 0; // keep track of time over time (wow!)*/
 
     while (1) {
         double currentDist = (fl.position(deg) + fr.position(deg) + ml.position(deg) + mr.position(deg) + bl.position(deg) + br.position(deg))/6;
@@ -325,12 +325,12 @@ int pid(double target) {
         prevPower = power;
         prevError = error;
 
-        //update histories and current time
+        // update histories and current time
         errorHistory.push_back(error);
         powerHistory.push_back(fabs(power));
         currentTime += 20;
 
-        //graph the PIDs 
+        // graph the PIDs 
         graphPID(errorHistory, powerHistory, target, error, currentTime);
 
         wait(20,msec);

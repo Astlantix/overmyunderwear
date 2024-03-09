@@ -5,7 +5,7 @@ using namespace vex;
 using namespace std;
 
 void rawp(void) {
-    
+
 }
 
 void oprawp(void) {

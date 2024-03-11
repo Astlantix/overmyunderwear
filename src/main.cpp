@@ -109,10 +109,10 @@ int main(void) {
     // Set up callbacks for autonomous and driver control periods.
     Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
-    //tank();
-    arcade();
     // Run the pre-autonomous function.
     pre_auton();
+    //tank();
+    arcade();
 
     // Prevent main from exiting with an infinite loop.
     while (true) {wait(10, msec);}

@@ -55,15 +55,36 @@ void setv(double vel) {
     R.setVelocity(vel,pct);
 }
 
-void msc(motor m) {
-    m.stop(coast);
-}
+void msc(motor m) {m.stop(coast);}
 
-void msp(motor m, bool dir, double vel) {
-    if (dir) {
-        m.spin(fwd,vel,pct);
+void msp(motor m, bool dir, double vel, int units) {
+    if (!units) {
+        double realvel = vel * 11/100;
+        if (fabs(realvel) > 11) realvel = 11;
+        if (dir) {
+            m.spin(fwd,realvel,pct);
+        } else {
+            m.spin(rev,realvel,pct);
+        }
+    } else if (units == 1) {
+        if (dir) {
+            m.spin(fwd,vel,rpm);
+        } else {
+            m.spin(rev,vel,rpm);
+        }
+    } else if (units == 2) {
+        if (fabs(vel) > 11) vel = 11;
+        if (dir) {
+            m.spin(fwd,vel,volt);
+        } else {
+            m.spin(rev,vel,volt);
+        }
     } else {
-        m.spin(rev,vel,pct);
+        if (dir) {
+            m.spin(fwd,vel,pct);
+        } else {
+            m.spin(rev,vel,pct);
+        }
     }
 }
 
@@ -71,7 +92,6 @@ void spread(void) {
     bat.open();
     wing.open();
 }
-
 void fold(void) {
     bat.close();
     wing.close();
@@ -88,15 +108,14 @@ void wingaction(void) {
 bool lflap = 0;
 bool rflap = 0;
 
-void lwing() {
+void lwing(void) {
   if (lflap) {
     wing.open();
   } else {
     wing.close();
   }
 }
-
-void rwing() {
+void rwing(void) {
   if (rflap) {
     bat.open();
   } else {
@@ -107,7 +126,7 @@ void rwing() {
 steady_clock::time_point lastLWing; // left wing last action time
 steady_clock::time_point lastRWing; // right wing last action time
 
-void lwings() {
+void lwings(void) {
   auto now = steady_clock::now();
   auto durLastLWing = duration_cast<milliseconds>(now - lastLWing).count();
   if (durLastLWing > 200) {
@@ -116,7 +135,7 @@ void lwings() {
   }
 }
 
-void rwings() {
+void rwings(void) {
   auto now = steady_clock::now();
   auto durLastRWing = duration_cast<milliseconds>(now - lastRWing).count();
   if (durLastRWing > 200) {
@@ -170,13 +189,26 @@ void intaking(void) {
         }
         printake = now;
     }
+    /*
+    if (zap.ButtonR1.pressing()) {
+        msp(intake,0);
+    } else if (zap.ButtonR2.pressing()) {
+        msp(intake);
+    } else {
+        msc(intake);
+    }
+    */
 }
-
 
 void tank(void) {
     while (1) {
-        double leftspeed = pow(zap.Axis3.position(),3)/1000;
-        double rightspeed = pow(zap.Axis2.position(),3)/1000;
+        double leftspeed = pow(zap.Axis3.position(),3)/100000 * 11;
+        double rightspeed = pow(zap.Axis2.position(),3)/100000 * 11;
+        if (leftspeed > 11) leftspeed = 11;
+        if (rightspeed > 11) rightspeed = 11;
+        if (leftspeed < -11) leftspeed = -11;
+        if (rightspeed < -11) rightspeed = -11;
+
         L.spin(fwd,leftspeed,pct);
         R.spin(fwd,rightspeed,pct);
     }
@@ -185,10 +217,20 @@ void tank(void) {
 
 void arcade(void) {
     while (1) {
-        double leftspeed = pow((zap.Axis3.position() + zap.Axis4.position()), 3)/1000;
-        double rightspeed = pow((zap.Axis3.position() - zap.Axis4.position()), 3)/1000;
-        L.spin(fwd,leftspeed,pct);
-        R.spin(fwd,rightspeed,pct);
+        double leftspeed = pow((zap.Axis3.position() + zap.Axis4.position()),3)/100000 * 11;
+        double rightspeed = pow((zap.Axis3.position() - zap.Axis4.position()),3)/100000 * 11;
+
+        if (leftspeed > 11) leftspeed = 11;
+        if (rightspeed > 11) rightspeed = 11;
+        if (leftspeed < -11) leftspeed = -11;
+        if (rightspeed < -11) rightspeed = -11;
+
+        fl.spin(fwd,leftspeed,volt);
+        br.spin(fwd,rightspeed,volt);
+        ml.spin(fwd,leftspeed,volt);
+        fr.spin(fwd,rightspeed,volt);
+        bl.spin(fwd,leftspeed,volt);
+        mr.spin(fwd,rightspeed,volt);
     }
     this_thread::sleep_for(10);
 }
@@ -268,7 +310,6 @@ void graphPID(vector<int> errorHistory, vector<float> powerHistory, int goal, fl
   }
 }
 
-//
 int pid(double target) {
     double kP = 0.0515;
     double kI = 0.0115;
@@ -343,8 +384,6 @@ int pid(double target) {
     br.stop();
     return 0;
 }
-
-
 
 void Left(double angle) {
     setstop(1);

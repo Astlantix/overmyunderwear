@@ -24,10 +24,11 @@ void msc(motor m);
 /**
  * @brief motor spin
  * @param m motor
- * @param dir direction, 1 = 1: forward, 0: backward
+ * @param dir direction = 1, 1: forward, 0: backward
  * @param vel velocity = 100
+ * @param units units = 0, 0: percent in voltage, 1: rpm, 3: voltage, 4: normal percent
 */
-void msp(motor m, bool dir = 1, double vel = 100);
+void msp(motor m, bool dir = 1, double vel = 100, int units = 0);
 
 // open wings
 void spread(void);
@@ -39,16 +40,16 @@ void fold(void);
 void wingaction(void);
 
 // open/close left wing
-void lwing();
+void lwing(void);
 
 // open/close right wing
-void rwing();
+void rwing(void);
 
 // open/close toggle left wing
-void lwings();
+void lwings(void);
 
 // open/close toggle right wing
-void rwings();
+void rwings(void);
 
 // open/close toggle wings
 void flap(void);
@@ -69,7 +70,7 @@ void punch(void);
 void pullback(void);
 
 // PID drivetrain
-int pid();
+int pid(double target);
 
 // turn right
 void Right(double angle);
@@ -86,7 +87,7 @@ void lft(double angle);
 // print to controller
 void printing(std::string);
 
-// tempcheck for over 45 C all motors
+// tempcheck for over 45 ℃ all motors
 bool tempcheck(void);
 
 #endif // FUNCTIONS_HPP

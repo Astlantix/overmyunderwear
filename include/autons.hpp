@@ -2,7 +2,6 @@
 #define AUTONS_HPP
 
 void rawp(void);
-void oprawp(void);
 void lawp(void);
 void elim(void);
 void skills(void);

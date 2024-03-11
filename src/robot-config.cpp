@@ -17,8 +17,8 @@ rotation l = rotation(PORT1, 0);
 rotation r = rotation(PORT11, 1);
 motor intake = motor(PORT12, ratio6_1, 1);
 motor cata = motor(PORT2, ratio36_1, 0);
-pneumatics bat = pneumatics(Brain.ThreeWirePort.A); // right wing
-pneumatics wing = pneumatics(Brain.ThreeWirePort.H); // left wing
+pneumatics bat = pneumatics(Brain.ThreeWirePort.A); 
+pneumatics wing = pneumatics(Brain.ThreeWirePort.H);
 inertial inert = inertial(PORT16);
 
 bool remoteControlCodeEnabled = 1;

@@ -63,11 +63,21 @@ void rawp(void) {
 
 void lawp(void) {
     // take triball out of corner, score preload, back up into elevation bar
-
+    bat.open();
+    fast.left(30);
+    fast.drive(7.5);
+    msp(intake,0,85);
+    wait(10,msec);
+    fast.drive(-7.5);
+    fast.left(60);
+    msc(intake);
+    fast.drive(-12);
 }
 
 void elim(void) {
     // same as left side win point, but go back to matchloading zone for faster bowling
+    lawp();
+    fast.drive(12);
 }
 
 void skills(void) {

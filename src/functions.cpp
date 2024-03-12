@@ -8,6 +8,7 @@ using namespace chrono;
 int auton = 1; // defualt auton
 int numofautons = 5; // maximum number of autons
 bool flapping = 0; // wing toggle
+bool flappings = 0; // front wings toggle
 int b = 0; // intake control
 bool punching = 0; // cata toggle
 
@@ -37,23 +38,6 @@ void autonslctr(void) {
     }
 }
 
-void setstop(int mode) {
-    if (!mode) {
-        L.setStopping(coast);
-        R.setStopping(coast);
-    } else if (mode == 1) {
-        L.setStopping(brake);
-        R.setStopping(brake);
-    } else {
-        L.setStopping(hold);
-        R.setStopping(hold);
-    }
-}
-
-void setv(double vel) {
-    L.setVelocity(vel,pct);
-    R.setVelocity(vel,pct);
-}
 
 void msc(motor m) {m.stop(coast);}
 
@@ -97,6 +81,24 @@ void fold(void) {
     wing.close();
 }
 
+void fspread(void) {
+    redd.open();
+    bull.open();
+}
+
+void ffold(void) {
+    redd.close();
+    bull.close();
+}
+
+void wingactions(void) {
+    if (flappings) {
+        ffold();
+    } else {
+        fspread();
+    }
+}
+
 void wingaction(void) {
     if (flapping) {
         fold();
@@ -107,6 +109,8 @@ void wingaction(void) {
 
 bool lflap = 0;
 bool rflap = 0;
+bool lflaps = 0;
+bool rflaps = 0;
 
 void lwing(void) {
   if (lflap) {
@@ -125,6 +129,8 @@ void rwing(void) {
 
 steady_clock::time_point lastLWing; // left wing last action time
 steady_clock::time_point lastRWing; // right wing last action time
+steady_clock::time_point lastLWings; // left wing front last action time
+steady_clock::time_point lastRWings; // right wing front last action time
 
 void lwings(void) {
   auto now = steady_clock::now();
@@ -153,6 +159,52 @@ void flap(void) {
             wingaction();
             flapping = !flapping;
             lastFlap = now;
+    }
+}
+
+steady_clock::time_point lastFlaps; // last front wing action time
+
+void flaps(void) {
+    auto now = steady_clock::now();
+    auto durLastFlaps = duration_cast<milliseconds>(now - lastFlaps).count();
+    if (durLastFlaps > 200) {
+            wingactions();
+            flappings = !flappings;
+            lastFlaps = now;
+    }
+}
+
+void flwing(void) {
+    if (lflaps) {
+        redd.open();
+    } else {
+        redd.close();
+    }
+}
+
+void frwing(void) {
+    if (rflaps) {
+        bull.open();
+    } else {
+        bull.close();
+    }
+}
+
+void flwings(void) {
+    auto now = steady_clock::now();
+    auto durLastLWings = duration_cast<milliseconds>(now - lastLWings).count();
+    if (durLastLWings > 200) {
+        lflaps = !lflaps;
+        lastLWings = now;
+    }
+}
+
+void frwings(void) {
+    auto now = steady_clock::now();
+    auto durLastRWings = duration_cast<milliseconds>(now - lastRWings).count();
+    if (durLastRWings > 200) {
+        rflaps = !rflaps;
+        lastRWings = now;
     }
 }
 
@@ -383,40 +435,6 @@ int pid(double target) {
     bl.stop();
     br.stop();
     return 0;
-}
-
-void Left(double angle) {
-    setstop(1);
-    inert.setRotation(0,deg);
-    while (fabs(inert.rotation(deg)) < angle) {
-        double error = angle - fabs(inert.rotation(deg));
-        L.spin(rev,5 + error * 0.1,pct);
-        R.spin(fwd,5 + error * 0.1,pct);
-    }
-    L.stop();
-    R.stop();
-}
-
-void rgt(double angle) {
-    setstop(1);
-    while (fabs(inert.rotation(deg)) < angle) {
-        double error = angle - fabs(inert.rotation(deg));
-        L.spin(fwd,5 + error * 0.1,pct);
-        R.spin(rev,5 + error * 0.1,pct);
-    }
-    L.stop();
-    R.stop();
-}
-
-void lft(double angle) {
-    setstop(1);
-    while (fabs(inert.rotation(deg)) < angle) {
-        double error = angle - fabs(inert.rotation(deg));
-        L.spin(rev,5 + error * 0.1,pct);
-        R.spin(fwd,5 + error * 0.1,pct);
-    }
-    L.stop();
-    R.stop();
 }
 
 double temp(motor m) {return m.temperature(celsius);}

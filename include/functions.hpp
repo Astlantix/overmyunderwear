@@ -6,18 +6,11 @@
 extern int auton;
 extern int b;
 extern bool flapping;
+extern bool flappings;
 extern bool punching;
 
 // auton selector
 void autonslctr(void);
-
-/**
- * @brief mode 0: coast, mode 1: brake, mode 2: hold
-*/
-void setstop(int mode = 0);
-
-// set drivetrain velocity
-void setv(double vel);
 
 // motor coast
 void msc(motor m);
@@ -35,6 +28,15 @@ void spread(void);
 
 // close wings
 void fold(void);
+
+// open front wings
+void fspread(void);
+
+// close front wings
+void ffold(void);
+
+// open/close front wings
+void wingactions(void);
 
 // open/close wings
 void wingaction(void);
@@ -54,6 +56,21 @@ void rwings(void);
 // open/close toggle wings
 void flap(void);
 
+// open/close toggle front wings
+void flaps(void);
+
+// open/close front left wing
+void flwing(void);
+
+// open/close front right wing
+void frwing(void);
+
+// open/close toggle front left wing
+void flwings(void);
+
+// open/close toggle front right wing
+void frwings(void);
+
 // intaking
 void intaking(void);
 
@@ -71,18 +88,6 @@ void pullback(void);
 
 // PID drivetrain
 int pid(double target);
-
-// turn right
-void Right(double angle);
-
-// turn left
-void Left(double angle);
-
-// turn right to heading (rotation)
-void rgt(double angle);
-
-// turn left to heading (rotation)
-void lft(double angle);
 
 // print to controller
 void printing(std::string);

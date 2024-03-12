@@ -74,6 +74,8 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 void usercontrol(void) {
+    fold();
+    ffold();
     printing("win");
     while (1) {
         // intake
@@ -82,10 +84,19 @@ void usercontrol(void) {
         // wings
         zap.ButtonY.pressed(wingaction);
         zap.ButtonY.released(flap);
+
         zap.ButtonL2.pressed(rwing);
         zap.ButtonL1.pressed(lwing);
         zap.ButtonL2.released(rwings);
         zap.ButtonL1.released(lwings);
+
+        zap.ButtonLeft.pressed(flwing);
+        zap.ButtonRight.pressed(frwing);
+        zap.ButtonLeft.released(flwings);
+        zap.ButtonRight.released(frwings);
+        
+        zap.ButtonA.pressed(wingactions);
+        zap.ButtonA.released(flaps);
 
         // cata
         zap.ButtonX.pressed(punch);

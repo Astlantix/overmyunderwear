@@ -13,12 +13,15 @@ motor bl = motor(PORT5, ratio6_1, 1);
 motor br = motor(PORT10, ratio6_1, 0);
 motor_group L = motor_group(fl, ml, bl);
 motor_group R = motor_group(fr, mr, br);
-rotation l = rotation(PORT1, 0);
-rotation r = rotation(PORT11, 1);
+encoder l = encoder(Brain.ThreeWirePort.B);
+encoder r = encoder(Brain.ThreeWirePort.D);
+speed fast = speed(fl, fr, bl, br, ml, mr, inert);
 motor intake = motor(PORT12, ratio6_1, 1);
 motor cata = motor(PORT2, ratio36_1, 0);
 pneumatics bat = pneumatics(Brain.ThreeWirePort.A); 
 pneumatics wing = pneumatics(Brain.ThreeWirePort.H);
+pneumatics redd = pneumatics(Brain.ThreeWirePort.F);
+pneumatics bull = pneumatics(Brain.ThreeWirePort.G);
 inertial inert = inertial(PORT16);
 
 bool remoteControlCodeEnabled = 1;

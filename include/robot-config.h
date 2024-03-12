@@ -11,10 +11,13 @@ extern motor bl; // back left
 extern motor br; // back right
 extern motor_group L; // left motors
 extern motor_group R; // right motors
+extern speed fast; // drivetrain
 extern motor intake; // intake
 extern motor cata; // catapult
 extern pneumatics bat; // right wing
 extern pneumatics wing; // left wing
+extern pneumatics redd; // left wing front
+extern pneumatics bull; // right wing front
 extern inertial inert; // inertial
 
 // nothing to initialize

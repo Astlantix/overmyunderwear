@@ -14,6 +14,8 @@ class speed{
     private:
         double gearRatio;
         double wheelDiameter;    
+        int min = 5;
+        int adjust = 0.1;
         
     public:
         /**

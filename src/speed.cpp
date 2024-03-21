@@ -27,12 +27,12 @@ void speed::right(double angle) {
     speed::inert->setRotation(0,deg);
     while (fabs(speed::inert->rotation(deg)) < angle) {
         double error = angle - fabs(inert->rotation(deg));
-       speed::fl->spin(rev,5 + error * 0.1,pct);
-       speed::fr->spin(fwd,5 + error * 0.1,pct);
-       speed::ml->spin(rev,5 + error * 0.1,pct);
-       speed::mr->spin(fwd,5 + error * 0.1,pct);
-       speed::bl->spin(rev,5 + error * 0.1,pct);
-       speed::br->spin(fwd,5 + error * 0.1,pct);
+       speed::fl->spin(rev,min + error * adjust,pct);
+       speed::fr->spin(fwd,min + error * adjust,pct);
+       speed::ml->spin(rev,min + error * adjust,pct);
+       speed::mr->spin(fwd,min + error * adjust,pct);
+       speed::bl->spin(rev,min + error * adjust,pct);
+       speed::br->spin(fwd,min + error * adjust,pct);
         
     }
     speed::fl->stop(brake);
@@ -47,12 +47,12 @@ void speed::left(double angle) {
     speed::inert->setRotation(0,deg);
     while (fabs(speed::inert->rotation(deg)) < angle) {
         double error = angle - fabs(inert->rotation(deg));
-       speed::fl->spin(fwd,5 + error * 0.1,pct);
-       speed::fr->spin(rev,5 + error * 0.1,pct);
-       speed::ml->spin(fwd,5 + error * 0.1,pct);
-       speed::mr->spin(rev,5 + error * 0.1,pct);
-       speed::bl->spin(fwd,5 + error * 0.1,pct);
-       speed::br->spin(rev,5 + error * 0.1,pct);
+       speed::fl->spin(fwd,min + error * min,pct);
+       speed::fr->spin(rev,min + error * min,pct);
+       speed::ml->spin(fwd,min + error * min,pct);
+       speed::mr->spin(rev,min + error * min,pct);
+       speed::bl->spin(fwd,min + error * min,pct);
+       speed::br->spin(rev,min + error * min,pct);
         
     }
     speed::fl->stop(brake);
